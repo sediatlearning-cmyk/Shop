@@ -12,12 +12,21 @@ public class ShopApplication {
 	
 	public static void main(String[] args) {
 		TestsArticleDao testsArticleDao = new TestsArticleDao();
-
+		
+		System.out.println("Creation d'un article");
 		testsArticleDao.testCreateArticle();
+		
+		System.out.println("Liste de tous les articles");
 		testsArticleDao.testFindAll();
+		
+		System.out.println("Recherche d'un article par son id");
 		testsArticleDao.testFindById();
+		
+		System.out.println("Modification d'un article");
 		testsArticleDao.testUpdateArticle();
+		
+		System.out.println("Suppression d'un article");
 		testsArticleDao.testDeleteArticle();
-
+		
 	}
 }
