@@ -47,7 +47,7 @@ public class ArticleDao {
 		}
 		return articles;
 	}
-	
+
 	public Article findById(int id) {
 
 		Article article = null;
@@ -74,5 +74,26 @@ public class ArticleDao {
 		return article;
 	}
 
-	
+	public void createArticle (Article article) {
+
+
+		String articleInsert = "INSERT INTO t_articles (Description, Brand, UnitaryPrice) VALUES (?, ?, ?);";
+
+		try(Connection connection = DriverManager.getConnection(url, login, password)){
+			PreparedStatement preparedStatement = connection.prepareStatement(articleInsert);
+
+			preparedStatement.setString(1, article.getDescription());
+			preparedStatement.setString(2, article.getBrand());
+			preparedStatement.setDouble(3, article.getPrice());
+
+			int row = preparedStatement.executeUpdate(articleInsert);		
+			if(row == 1) {
+				System.out.println("insertion OK");
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
+
