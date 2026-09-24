@@ -144,10 +144,10 @@ public class ArticleDao {
 		}
 	}
 
-	/** 
-	 * Supprime un article de la base de données à partir de son identifiant. 
-	 * @param id l'identifiant de l'article à supprimer 
-	 * */
+	/**
+	* Deletes an item from the database based on its identifier. 
+	* @param id the identifier of the item to delete
+	*/
 	public void deleteArticle (int id) {
 		String articleToDelete = "DELETE FROM t_articles WHERE t_articles.IdArticle = ?;";
 
