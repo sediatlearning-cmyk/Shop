@@ -11,25 +11,6 @@ import models.Article;
 public class TestsArticleDao {
 
 	/** 
-	 * Entry point of the test class. 
-	 * Executes all ArticleDao tests in sequence: 
-	 * create, find all, find by ID, update and delete.
-	 * 
-	 * @param args command-line arguments 
-	 */
-	public static void main(String[] args) {
-	
-		TestsArticleDao testsArticleDao = new TestsArticleDao();
-		
-		testsArticleDao.testCreateArticle();
-		testsArticleDao.testFindAll();
-		testsArticleDao.testFindById();
-		testsArticleDao.testUpdateArticle();
-		testsArticleDao.testDeleteArticle();
-
-	}
-	
-	/** 
 	 * Tests the creation of a new article. 
 	 * Creates an ArticleDao and an Article object, then calls 
 	 * the createArticle() method to insert the article into the database. 
