@@ -28,8 +28,8 @@ public class ArticleDao {
 		String allArticlefounded = "SELECT * FROM t_articles";
 
 		try (Connection connection = DriverManager.getConnection(url, login, password)) {
-			PreparedStatement prepareStatement = connection.prepareStatement(allArticlefounded);
-			try(ResultSet resultSet = prepareStatement.executeQuery()){
+			PreparedStatement preparedStatement = connection.prepareStatement(allArticlefounded);
+			try(ResultSet resultSet = preparedStatement.executeQuery()){
 				while(resultSet.next()) {
 					articles.add(
 							new Article(
@@ -60,10 +60,10 @@ public class ArticleDao {
 				+ "WHERE t_articles.IdArticle = ?;";
 
 		try(Connection connection = DriverManager.getConnection(url, login, password)){
-			PreparedStatement prepareStatement = connection.prepareStatement(articleFindedById);
+			PreparedStatement preparedStatement = connection.prepareStatement(articleFindedById);
 
-			prepareStatement.setInt(1, id);
-			try(ResultSet resultSet = prepareStatement.executeQuery()){
+			preparedStatement.setInt(1, id);
+			try(ResultSet resultSet = preparedStatement.executeQuery()){
 
 				article = new Article(
 						resultSet.getInt(1), 
@@ -121,6 +121,24 @@ public class ArticleDao {
 				System.out.println("Mise à jour OK");
 			}
 		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteArticle (int id) {
+		String articleToDelete = "DELETE FROM t_articles WHERE t_articles.IdArticle = ?;";
+
+		try(Connection connection = DriverManager.getConnection(url, login, password)){
+			PreparedStatement preparedStatement = connection.prepareStatement(articleToDelete);
+			preparedStatement.setInt(1, id);
+			
+			int row = preparedStatement.executeUpdate();		
+			if(row == 1) {
+				System.out.println("Suppression OK");
+			}
+			
+		} 
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
