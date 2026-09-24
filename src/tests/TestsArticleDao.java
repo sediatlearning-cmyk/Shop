@@ -25,6 +25,7 @@ public class TestsArticleDao {
 		testsArticleDao.testFindAll();
 		testsArticleDao.testFindById();
 		testsArticleDao.testUpdateArticle();
+		testsArticleDao.testDeleteArticle();
 
 	}
 	
@@ -102,4 +103,14 @@ public class TestsArticleDao {
 		System.out.println(articleDao.findById(99)); 
 	}
 
+	/** 
+	 * Tests the deletion of an article. 
+	 * Calls the deleteArticle() method with a specific ID 
+	 * to delete the corresponding article from the database. 
+	 */
+	public void testDeleteArticle() {
+		ArticleDao articleDao = new ArticleDao();
+		int id = 99;
+		articleDao.deleteArticle(id);
+	}
 }
