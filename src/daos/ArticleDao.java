@@ -52,7 +52,12 @@ public class ArticleDao {
 
 		Article article = null;
 
-		String articleFindedById = "SELECT t_articles.IdArticle, t_articles.description, t_articles.brand, t_articles.unitaryPrice FROM t_articles WHERE t_articles.IdArticle = ?;";
+		String articleFindedById = "SELECT t_articles.IdArticle, "
+				+ "t_articles.description, "
+				+ "t_articles.brand, "
+				+ "t_articles.unitaryPrice "
+				+ "FROM t_articles "
+				+ "WHERE t_articles.IdArticle = ?;";
 
 		try(Connection connection = DriverManager.getConnection(url, login, password)){
 			PreparedStatement prepareStatement = connection.prepareStatement(articleFindedById);
