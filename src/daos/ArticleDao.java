@@ -14,8 +14,6 @@ import models.Article;
 
 public class ArticleDao {
 
-	ArrayList<Article> articles = new ArrayList<>();
-
 	//récupérer une connexion à partir d'une url + id + pwd
 	String url = "jdbc:mariadb://127.0.0.1:3306/shop";
 	String login = "root";
