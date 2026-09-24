@@ -22,6 +22,7 @@ public class TestsArticleDao {
 		TestsArticleDao testsArticleDao = new TestsArticleDao();
 		
 		testsArticleDao.testCreateArticle();
+		testsArticleDao.testFindAll();
 	}
 	
 	/** 
@@ -41,5 +42,29 @@ public class TestsArticleDao {
 		System.out.println(articleDao.findById(99)); 
 		
 	}
+	
+	/** 
+	 * Tests the retrieval of all articles.  
+	 * Calls the findAll() method to retrieve the articles from the database. 
+	 * If the returned list is not null or empty, each article is displayed. 
+	 * Otherwise, a message indicating that no article was found is displayed. 
+	 */
+	public void testFindAll() {
+		
+		ArticleDao articleDao = new ArticleDao();
+		
+		List<Article> articles = articleDao.findAll();
+		
+		if(articles != null && !articles.isEmpty()) {
+			
+			for (Article article : articles) {
+				System.out.println(article);
+			}
+		}
+		else {
+			System.out.println("pas d'article trouvé");
+		}	
+	}
+
 	
 }
