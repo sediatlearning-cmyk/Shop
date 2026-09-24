@@ -23,6 +23,8 @@ public class TestsArticleDao {
 		
 		testsArticleDao.testCreateArticle();
 		testsArticleDao.testFindAll();
+		testsArticleDao.testFindById();
+
 	}
 	
 	/** 
@@ -66,5 +68,19 @@ public class TestsArticleDao {
 		}	
 	}
 
+	/** 
+	 * Tests the retrieval of an article by its ID. 
+	 * Calls the findById() method with a specific ID and displays 
+	 * the corresponding article. 
+	 */	
 	
+	public void testFindById() {
+		
+		ArticleDao articleDao = new ArticleDao();
+		int id = 7;
+		
+		Article article = articleDao.findById(id);
+		System.out.println(article);
+	}
+
 }
