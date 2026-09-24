@@ -77,7 +77,8 @@ public class ArticleDao {
 	public void createArticle (Article article) {
 
 
-		String articleInsert = "INSERT INTO t_articles (Description, Brand, UnitaryPrice) VALUES (?, ?, ?);";
+		String articleInsert = "INSERT INTO t_articles (Description, Brand, UnitaryPrice)"
+				+ "VALUES (?, ?, ?);";
 
 		try(Connection connection = DriverManager.getConnection(url, login, password)){
 			PreparedStatement preparedStatement = connection.prepareStatement(articleInsert);
@@ -86,7 +87,7 @@ public class ArticleDao {
 			preparedStatement.setString(2, article.getBrand());
 			preparedStatement.setDouble(3, article.getPrice());
 
-			int row = preparedStatement.executeUpdate(articleInsert);		
+			int row = preparedStatement.executeUpdate();		
 			if(row == 1) {
 				System.out.println("insertion OK");
 			}
