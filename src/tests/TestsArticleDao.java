@@ -24,6 +24,7 @@ public class TestsArticleDao {
 		testsArticleDao.testCreateArticle();
 		testsArticleDao.testFindAll();
 		testsArticleDao.testFindById();
+		testsArticleDao.testUpdateArticle();
 
 	}
 	
@@ -81,6 +82,24 @@ public class TestsArticleDao {
 		
 		Article article = articleDao.findById(id);
 		System.out.println(article);
+	}
+
+	/** 
+	 * Tests the update of an existing article. 
+	 * Creates an Article object with modified information, then calls 
+	 * the updateArticle() method to update the corresponding article 
+	 * in the database. 
+	 * The findById() method is then used to verify that the article 
+	 * has been successfully updated. 
+	 */
+	public void testUpdateArticle() {
+		
+		ArticleDao articleDao = new ArticleDao();
+		Article article = new Article(99, "LaptopTest2", "Test2", 599.99);
+		
+		articleDao.updateArticle(article);
+		
+		System.out.println(articleDao.findById(99)); 
 	}
 
 }
