@@ -47,4 +47,32 @@ public class ArticleDao {
 		}
 		return articles;
 	}
+	
+	public Article findById(int id) {
+
+		Article article = null;
+
+		String articleFindedById = "SELECT t_articles.IdArticle, t_articles.description, t_articles.brand, t_articles.unitaryPrice FROM t_articles WHERE t_articles.IdArticle = ?;";
+
+		try(Connection connection = DriverManager.getConnection(url, login, password)){
+			PreparedStatement prepareStatement = connection.prepareStatement(articleFindedById);
+
+			prepareStatement.setInt(1, id);
+			try(ResultSet resultSet = prepareStatement.executeQuery()){
+
+				article = new Article(
+						resultSet.getInt(1), 
+						resultSet.getString(2), 
+						resultSet.getString(3), 
+						resultSet.getDouble(4)
+						);
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return article;
+	}
+
+	
 }
