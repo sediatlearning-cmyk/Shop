@@ -95,5 +95,28 @@ public class ArticleDao {
 			e.printStackTrace();
 		}
 	}
-}
 
+	public void updateArticle (Article article) {
+		String articleToUpdate = "UPDATE t_articles SET t_articles.Description = ?,"
+				+ " t_articles.brand = ?, "
+				+ "t_articles.UnitaryPrice = ? "
+				+ "WHERE t_articles.IdArticle = ?;";
+
+		try(Connection connection = DriverManager.getConnection(url, login, password)){
+			PreparedStatement preparedStatement = connection.prepareStatement(articleToUpdate);
+			
+			preparedStatement.setString(1, article.getDescription());
+			preparedStatement.setString(2, article.getBrand());
+			preparedStatement.setDouble(3, article.getPrice());
+			preparedStatement.setInt(4, article.getId());
+			
+			int row = preparedStatement.executeUpdate();		
+			if(row == 1) {
+				System.out.println("Mise à jour OK");
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+}
