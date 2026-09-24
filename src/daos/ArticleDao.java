@@ -19,6 +19,38 @@ public class ArticleDao {
 	String login = "root";
 	String password = "?Root!123@PmA";
 
+	/**
+	 * Creates a new article in the database. 
+	 *
+	 * @param article the article containing the information to be saved
+	 */
+	public void createArticle (Article article) {
+
+		String articleInsert = "INSERT INTO t_articles (Description, Brand, UnitaryPrice)"
+				+ "VALUES (?, ?, ?);";
+
+		try(Connection connection = DriverManager.getConnection(url, login, password)){
+			PreparedStatement preparedStatement = connection.prepareStatement(articleInsert);
+
+			preparedStatement.setString(1, article.getDescription());
+			preparedStatement.setString(2, article.getBrand());
+			preparedStatement.setDouble(3, article.getPrice());
+
+			int row = preparedStatement.executeUpdate();		
+			if(row == 1) {
+				System.out.println("insertion OK");
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Retrieves all articles from the database.
+	 *
+	 * @return a list containing all the retrieved articles
+	 */
 	public List<Article> findAll () {
 
 		List<Article> articles = new ArrayList<Article>();
@@ -46,6 +78,13 @@ public class ArticleDao {
 		return articles;
 	}
 
+	/**
+	 * Searches for an article in the database using its ID.
+
+	 * @param id the ID of the article to search for
+	 * @return the article corresponding to the ID, or {@code null} if no article is found
+
+	 */
 	public Article findById(int id) {
 
 		Article article = null;
@@ -77,29 +116,10 @@ public class ArticleDao {
 		return article;
 	}
 
-	public void createArticle (Article article) {
-
-
-		String articleInsert = "INSERT INTO t_articles (Description, Brand, UnitaryPrice)"
-				+ "VALUES (?, ?, ?);";
-
-		try(Connection connection = DriverManager.getConnection(url, login, password)){
-			PreparedStatement preparedStatement = connection.prepareStatement(articleInsert);
-
-			preparedStatement.setString(1, article.getDescription());
-			preparedStatement.setString(2, article.getBrand());
-			preparedStatement.setDouble(3, article.getPrice());
-
-			int row = preparedStatement.executeUpdate();		
-			if(row == 1) {
-				System.out.println("insertion OK");
-			}
-		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
+	/**
+	 * Updates an article's information in the database.
+	 * @param article the article containing the new information to be saved
+	 */
 	public void updateArticle (Article article) {
 		String articleToUpdate = "UPDATE t_articles SET t_articles.Description = ?,"
 				+ " t_articles.brand = ?, "
@@ -108,12 +128,12 @@ public class ArticleDao {
 
 		try(Connection connection = DriverManager.getConnection(url, login, password)){
 			PreparedStatement preparedStatement = connection.prepareStatement(articleToUpdate);
-			
+
 			preparedStatement.setString(1, article.getDescription());
 			preparedStatement.setString(2, article.getBrand());
 			preparedStatement.setDouble(3, article.getPrice());
 			preparedStatement.setInt(4, article.getId());
-			
+
 			int row = preparedStatement.executeUpdate();		
 			if(row == 1) {
 				System.out.println("Mise à jour OK");
@@ -123,19 +143,23 @@ public class ArticleDao {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/** 
+	 * Supprime un article de la base de données à partir de son identifiant. 
+	 * @param id l'identifiant de l'article à supprimer 
+	 * */
 	public void deleteArticle (int id) {
 		String articleToDelete = "DELETE FROM t_articles WHERE t_articles.IdArticle = ?;";
 
 		try(Connection connection = DriverManager.getConnection(url, login, password)){
 			PreparedStatement preparedStatement = connection.prepareStatement(articleToDelete);
 			preparedStatement.setInt(1, id);
-			
+
 			int row = preparedStatement.executeUpdate();		
 			if(row == 1) {
 				System.out.println("Suppression OK");
 			}
-			
+
 		} 
 		catch(SQLException e) {
 			e.printStackTrace();
